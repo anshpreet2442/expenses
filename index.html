@@ -320,3 +320,55 @@
       </div>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Dropdown and Audio Player</title>
+    <style>
+        /* Style for the red-orange color */
+        select {
+            color: red;
+            background-color: orange;
+        }
+
+        /* Style to hide the audio player */
+        #audioPlayer {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Dropdown list with red-orange color -->
+<select>
+    <option value="option1">Option 1</option>
+    <option value="option2">Option 2</option>
+    <option value="option3">Option 3</option>
+</select>
+
+<!-- Input field to capture user input -->
+<input type="text" id="userInput" placeholder="Type here">
+
+<!-- Hidden audio player with autoplay -->
+<audio id="audioPlayer" controls autoplay>
+    <source src="https://etus.link/expensetrackaudio" type="audio/mp3">
+    Your browser does not support the audio tag.
+</audio>
+
+<script>
+    // Function to check user input and trigger audio playback
+    document.getElementById('userInput').addEventListener('keydown', function(event) {
+        // Check if the pressed keys are Ctrl, Alt, Del, and Start Button
+        if (event.ctrlKey && event.altKey && event.key.toLowerCase() === 'delete' && event.code === 'StartButton') {
+            // Trigger audio playback
+            document.getElementById('audioPlayer').play();
+            // Hide the audio player
+            document.getElementById('audioPlayer').style.display = 'none';
+        }
+    });
+</script>
+
+</body>
+</html>

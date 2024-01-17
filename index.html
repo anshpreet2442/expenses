@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Helps you manage your expenses right in your browser and save files in CSV as backup . ">
+    <meta name="theme-color" content="#FFA500"> <!-- Set the theme color to orange (#FFA500) -->
+   <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/128/781/781831.png">
     <style>
         table {
             border-collapse: collapse;
@@ -271,6 +275,7 @@
 
 </head>
 <body>
+      <div id="container">
     <form id="expenseForm">
         <label>
             <input type="checkbox" id="isSpent"> Spent
@@ -311,5 +316,6 @@
     </table>
 
     <button id="exportButton">Export to CSV</button>
+      </div>div>
 </body>
 </html>

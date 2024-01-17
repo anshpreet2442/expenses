@@ -28,6 +28,153 @@
         .earned {
             background-color: #ccffcc;
         }
+
+
+    <style>
+        body {
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        #container {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 5px 5px 15px #d0d0d0, -5px -5px 15px #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 10px;
+        }
+
+        input[type="checkbox"] {
+            appearance: none;
+            position: relative;
+            width: 40px;
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s;
+            box-shadow: inset 5px 5px 10px #d0d0d0, inset -5px -5px 10px #ffffff;
+        }
+
+        input[type="checkbox"]:checked {
+            background-color: #4CAF50; /* Green for earning */
+        }
+
+        input[type="checkbox"]::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: #fff;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+
+        input[type="checkbox"]:checked::before {
+            left: 20px; /* Move to the right for the checked state */
+        }
+
+        input[type="number"], input[type="text"], select {
+            padding: 8px;
+            border: 1px solid #d0d0d0;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            outline: none;
+            transition: box-shadow 0.3s;
+        }
+
+        input[type="number"]:focus, input[type="text"]:focus, select:focus {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+            transition: box-shadow 0.3s;
+        }
+
+        button:hover {
+            box-shadow: 5px 5px 10px #d0d0d0, -5px -5px 10px #ffffff;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .spent {
+            background-color: #ffcccc;
+        }
+
+        .earned {
+            background-color: #ccffcc;
+        }
+
+
+        tr:hover {
+            transform: scale(1.1);
+            background-color: #d0d0d0;
+        }
+
+        tr:hover td {
+            color: #ffffff;
+        }
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+        
     </style>
 <script>
     document.addEventListener('DOMContentLoaded', function () {

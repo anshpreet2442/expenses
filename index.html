@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Manager</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .spent {
+            background-color: #ffcccc;
+        }
+
+        .earned {
+            background-color: #ccffcc;
+        }
+    </style>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        loadData();
+
+        document.getElementById('expenseForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            addExpense();
+        });
+
+        document.getElementById('exportButton').addEventListener('click', function () {
+            exportToCSV();
+        });
+    });
+
+    function addExpense() {
+        const isSpent = document.getElementById('isSpent').checked;
+        const amount = document.getElementById('amount').value;
+        const tag = document.getElementById('tag').value;
+        const method = document.getElementById('method').value;
+        const location = document.getElementById('location').value;
+
+        const table = document.getElementById('expenseTable');
+        const newRow = table.insertRow(-1);
+        const cell1 = newRow.insertCell(0);
+        const cell2 = newRow.insertCell(1);
+        const cell3 = newRow.insertCell(2);
+        const cell4 = newRow.insertCell(3);
+        const cell5 = newRow.insertCell(4);
+
+        cell1.textContent = isSpent ? 'Spent' : 'Earned';
+        cell2.textContent = amount;
+        cell3.textContent = tag;
+        cell4.textContent = method;
+        cell5.textContent = location;
+
+        if (isSpent) {
+            newRow.classList.add('spent');
+        } else {
+            newRow.classList.add('earned');
+        }
+
+        saveData();
+        document.getElementById('expenseForm').reset();
+    }
+
+    function saveData() {
+        const tableData = [];
+        const tableRows = document.querySelectorAll('#expenseTable tr');
+
+        tableRows.forEach(function (row) {
+            const rowData = [];
+            row.childNodes.forEach(function (cell) {
+                rowData.push(cell.textContent);
+            });
+            tableData.push(rowData.join(','));
+        });
+
+        localStorage.setItem('expenseData', tableData.join(';'));
+    }
+
+    function loadData() {
+        const tableData = localStorage.getItem('expenseData');
+        if (tableData) {
+            const rows = tableData.split(';');
+            const table = document.getElementById('expenseTable');
+            rows.forEach(function (rowData) {
+                const cells = rowData.split(',');
+                const newRow = table.insertRow(-1);
+                cells.forEach(function (cellData, index) {
+                    const newCell = newRow.insertCell(index);
+                    newCell.textContent = cellData;
+                    if (index === 0) {
+                        newCell.classList.add(cells[0] === 'Spent' ? 'spent' : 'earned');
+                    }
+                });
+            });
+        }
+    }
+
+    function exportToCSV() {
+        const tableData = localStorage.getItem('expenseData');
+        if (tableData) {
+            const csvContent = 'data:text/csv;charset=utf-8,' + tableData.replace(/;/g, '\n');
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', 'expenses.csv');
+            document.body.appendChild(link);
+            link.click();
+        }
+    }
+</script>
+
+</head>
+<body>
+    <form id="expenseForm">
+        <label>
+            <input type="checkbox" id="isSpent"> Spent
+        </label>
+        <label>
+            <input type="checkbox" id="isearned"> Earned
+        </label>
+        <label>
+            Amount:
+            <input type="number" id="amount" required>
+        </label>
+        <label>
+            Tag:
+            <input type="text" id="tag" required>
+        </label>
+        <label>
+            Method:
+            <select id="method" required>
+                <option value="cash">Cash</option>
+                <option value="paytm">Paytm</option>
+            </select>
+        </label>
+        <label>
+            Location (optional):
+            <input type="text" id="location">
+        </label>
+        <button type="submit">Submit</button>
+    </form>
+
+    <table id="expenseTable">
+        <tr>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Tag</th>
+            <th>Method</th>
+            <th>Location</th>
+        </tr>
+    </table>
+
+    <button id="exportButton">Export to CSV</button>
+</body>
+</html>
